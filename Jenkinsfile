@@ -1,25 +1,43 @@
-pipeline {
-    agent any
+pipeline
 
-    stages {
+{
+agent any 
+stages
+{
+stage('Build')
+{
+    steps
+{
+    echo 'Build Application'
+}
+}
 
-        stage('Clone Code') {
-            steps {
-                git branch: 'master',
-                    url: 'https://github.com/pvsshree/Helloworld_CICD.git'
-            }
-        }
 
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t hello-java-app .'
-            }
-        }
 
-        stage('Run Docker Container') {
-            steps {
-                sh 'docker run --rm hello-java-app'
-            }
-        }
+stage('Test')
+{
+steps{
+echo 'Test Application'
+}
+}
+
+
+stage('Deploy')
+{
+steps{
+echo 'Deploying Application'
+
+}
+}
+}
+post
+{
+    always {
+emailext body: 'Summary', subject: 'Pipeline status', to: 'pvsshreegajanan@gmail.com'
     }
+    }
+
+
+
+
 }
