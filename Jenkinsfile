@@ -5,25 +5,22 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git branch: 'main',
+                git branch: 'master',
                     url: 'https://github.com/pvsshree/Helloworld_CICD.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build("hello-java-app")
-                }
+                sh 'docker build -t hello-java-app .'
             }
         }
 
         stage('Run Docker Container') {
-            steps {
-                script {
-                    dockerImage.run()
-                }
+             steps {
+                sh 'docker run --rm hello-java-app'
             }
+        }
         }
     }
 }
